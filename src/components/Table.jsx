@@ -1,20 +1,27 @@
 import React, { useContext } from 'react';
 import AppContext from '../contexts/AppContext';
-import useFetch from '../hooks/useFetch';
-
-const API_URL = 'https://swapi.dev/api/planets';
 
 function Table() {
-  const { apiData } = useFetch(API_URL);
-  const { planetName, setPlanetName } = useContext(AppContext);
+  const { apiData, apiInitialState, setApiData, planetName, setPlanetName, column,
+    setColumn, operator,
+    setOperator, valueFilter, setValueFilter } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
     const { value } = target;
 
     setPlanetName(value);
   };
-  // simplesmente usar um objectVALUES/KEYS NAO FUNCIONAAAAAAAAA
-  // console.log(Object.values(apiData[0]));
+
+  const handleFilter = (col, oper, value) => {
+    const operators = {
+      'maior que': apiInitialState.filter((item) => item[col] > Number(value)),
+      'menor que': apiInitialState.filter((item) => item[col] < Number(value)),
+      'igual a': apiInitialState.filter((item) => item[col] === value),
+    };
+
+    setApiData(operators[oper]);
+  };
+
   return (
     <div>
       <label data-testid="name-filter" htmlFor="name-filter">
@@ -26,6 +33,52 @@ function Table() {
           placeholder="Search by name"
         />
       </label>
+      <label htmlFor="column-filter">
+        Column
+        <select
+          data-testid="column-filter"
+          id="column-filter"
+          value={ column }
+          onChange={ ({ target }) => setColumn(target.value) }
+        >
+          <option>population</option>
+          <option>orbital_period</option>
+          <option>diameter</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
+        </select>
+      </label>
+      <label htmlFor="comparison-filter">
+        Operator
+        <select
+          data-testid="comparison-filter"
+          id="comparison-filter"
+          value={ operator }
+          onChange={ ({ target }) => setOperator(target.value) }
+        >
+          <option>maior que</option>
+          <option>menor que</option>
+          <option>igual a</option>
+        </select>
+      </label>
+      <label htmlFor="value-filter">
+        <input
+          data-testid="value-filter"
+          type="number"
+          name="value-filter"
+          id="value-filter"
+          value={ valueFilter }
+          onChange={ ({ target }) => setValueFilter(target.value) }
+        />
+      </label>
+      <button
+        type="button"
+        data-testid="button-filter"
+        onClick={ () => handleFilter(column, operator, valueFilter) }
+      >
+        Filtrar
+
+      </button>
       <table border="1">
         <thead className="has-background-primary">
           <tr>
