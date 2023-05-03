@@ -1,3 +1,9 @@
 body {
   background-color: rgb(163, 213, 228);
 }
+
+ul li {
+  align-items: center;
+  display: flex;
+}
+

@@ -11,7 +11,7 @@ function AppProvider({ children }) {
 
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState([]);
-  const [apiInitialState, setApiInitialState] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [column, setColumn] = useState('population');
@@ -31,7 +31,6 @@ function AppProvider({ children }) {
         delete item.residents;
         return item;
       });
-      setApiInitialState(newData);
       setApiData(newData);
       setLoading(false);
     } catch (error) {
@@ -47,8 +46,8 @@ function AppProvider({ children }) {
   const values = useMemo(() => ({
     apiData,
     setApiData,
-    apiInitialState,
-    setApiInitialState,
+    filteredData,
+    setFilteredData,
     loading,
     errorMessage,
 
@@ -66,9 +65,10 @@ function AppProvider({ children }) {
 
     columnsOptions,
     setColumnsOptions,
-  }), [apiData, setApiData, apiInitialState, setApiInitialState, loading, errorMessage,
-    planetName, setPlanetName, column, operator, valueFilter, filters, setFilters,
-    columnsOptions]);
+
+    INITIAL_COLS,
+  }), [apiData, loading, errorMessage, filteredData,
+    planetName, column, operator, valueFilter, filters, columnsOptions]);
 
   return (
     <AppContext.Provider value={ values }>

@@ -1,30 +1,60 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AppContext from '../contexts/AppContext';
 
 const MAX_FILTER_OPTIONS = 5;
 function Form() {
   const {
-    apiData, setApiData, planetName, setPlanetName, column,
+    apiData, planetName, setPlanetName, column,
     setColumn, operator, setOperator, valueFilter, setValueFilter, filters,
-    setFilters, columnsOptions, setColumnsOptions } = useContext(AppContext);
+    setFilters, columnsOptions,
+    setColumnsOptions, setFilteredData, INITIAL_COLS } = useContext(AppContext);
   const handleChange = ({ target }) => {
     const { value } = target;
 
     setPlanetName(value);
   };
 
-  const handleFilter = (col, oper, value) => {
-    const operators = {
-      'maior que': apiData.filter((item) => item[col] > Number(value)),
-      'menor que': apiData.filter((item) => item[col] < Number(value)),
-      'igual a': apiData.filter((item) => item[col] === value),
-    };
+  useEffect(() => {
+    const filteredData = filters.reduce((acc, curr) => {
+      const filter = acc.filter((e) => {
+        switch (curr.operator) {
+        case 'maior que':
+          return e[curr.column] > Number(curr.valueFilter);
+        case 'menor que':
+          return e[curr.column] < Number(curr.valueFilter);
+        default:
+          return e[curr.column] === curr.valueFilter;
+        }
+      });
+      return filter;
+    }, apiData);
 
-    setColumnsOptions(columnsOptions.filter((e) => e !== column));
+    setFilteredData(filteredData);
+  }, [filters, apiData, setFilteredData]);
+
+  const handleFilter = (col, oper, value) => {
+    // const operators = {
+    //   'maior que': apiData.filter((item) => item[col] > Number(value)),
+    //   'menor que': apiData.filter((item) => item[col] < Number(value)),
+    //   'igual a': apiData.filter((item) => item[col] === value),
+    // };
+    // setApiData(operators[oper]);
+    setColumnsOptions(columnsOptions.filter((e) => e !== col));
     setColumn(columnsOptions[1]);
-    setFilters([...filters, { column, operator, valueFilter }]);
-    setApiData(operators[oper]);
+    setFilters([...filters, { column: col, operator: oper, valueFilter: value }]);
   };
+
+  const handleDeleteOneFilter = (toBeDeleted) => {
+    setColumnsOptions([...columnsOptions, toBeDeleted.column]);
+    setColumn(columnsOptions[0]);
+    setFilters(filters.filter((e) => e !== toBeDeleted));
+  };
+
+  const handleDeleteAll = () => {
+    setColumnsOptions(INITIAL_COLS);
+    setFilters([]);
+  };
+
   return (
     <div>
       <label data-testid="name-filter" htmlFor="name-filter">
@@ -78,12 +108,23 @@ function Form() {
       >
         Filtrar
       </button>
-      <section>
-        {filters.length > 0 && filters.map((e) => (
-          <p key={ e.column }>{`${e.column} ${e.operator} ${e.valueFilter}`}</p>
-        ))}
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ handleDeleteAll }
+        disabled={ filters.length === 0 }
+      >
+        Remover Filtros
 
-      </section>
+      </button>
+      <ul>
+        {filters.length > 0 && filters.map((e) => (
+          <li data-testid="filter" key={ e.column }>
+            <button onClick={ () => handleDeleteOneFilter(e) }>X</button>
+            <p>{`${e.column} ${e.operator} ${e.valueFilter}`}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

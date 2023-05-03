@@ -3,7 +3,7 @@ import AppContext from '../contexts/AppContext';
 import Form from './Form';
 
 function Table() {
-  const { apiData, planetName } = useContext(AppContext);
+  const { planetName, filteredData } = useContext(AppContext);
 
   return (
     <div>
@@ -27,7 +27,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {apiData
+          {filteredData
             .filter((e) => e.name.toLowerCase().includes(planetName.toLowerCase()))
             .map((element) => (
               <tr key={ element.name }>
