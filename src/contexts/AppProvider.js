@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
 const API_URL = 'https://swapi.dev/api/planets';
+const INITIAL_COLS = ['population', 'orbital_period', 'diameter',
+  'rotation_period', 'surface_water'];
 
 function AppProvider({ children }) {
   const [planetName, setPlanetName] = useState('');
@@ -15,6 +17,8 @@ function AppProvider({ children }) {
   const [column, setColumn] = useState('population');
   const [operator, setOperator] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
+
+  const [columnsOptions, setColumnsOptions] = useState(INITIAL_COLS);
 
   const [filters, setFilters] = useState([]);
 
@@ -59,8 +63,12 @@ function AppProvider({ children }) {
 
     filters,
     setFilters,
+
+    columnsOptions,
+    setColumnsOptions,
   }), [apiData, setApiData, apiInitialState, setApiInitialState, loading, errorMessage,
-    planetName, setPlanetName, column, operator, valueFilter, filters, setFilters]);
+    planetName, setPlanetName, column, operator, valueFilter, filters, setFilters,
+    columnsOptions]);
 
   return (
     <AppContext.Provider value={ values }>

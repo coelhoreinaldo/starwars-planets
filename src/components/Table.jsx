@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import AppContext from '../contexts/AppContext';
 
+const MAX_FILTER_OPTIONS = 5;
 function Table() {
   const {
     apiData, setApiData, planetName, setPlanetName, column,
-    setColumn, operator, setOperator, valueFilter, setValueFilter, filters, setFilters,
+    setColumn, operator, setOperator, valueFilter, setValueFilter, filters,
+    setFilters, columnsOptions, setColumnsOptions,
   } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
@@ -14,12 +16,19 @@ function Table() {
   };
 
   const handleFilter = (col, oper, value) => {
+    // const columns = filters.map((e) => e.column);
+    // if (columns.includes(col)) {
+    //   return;
+    // }
+
     const operators = {
       'maior que': apiData.filter((item) => item[col] > Number(value)),
       'menor que': apiData.filter((item) => item[col] < Number(value)),
       'igual a': apiData.filter((item) => item[col] === value),
     };
 
+    setColumnsOptions(columnsOptions.filter((e) => e !== column));
+    setColumn(columnsOptions[1]);
     setFilters([...filters, { column, operator, valueFilter }]);
     setApiData(operators[oper]);
   };
@@ -40,14 +49,10 @@ function Table() {
         <select
           data-testid="column-filter"
           id="column-filter"
-          value={ column }
           onChange={ ({ target }) => setColumn(target.value) }
+          value={ column }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          {columnsOptions.map((e) => <option value={ e } key={ e }>{e}</option>)}
         </select>
       </label>
       <label htmlFor="comparison-filter">
@@ -77,12 +82,18 @@ function Table() {
         type="button"
         data-testid="button-filter"
         onClick={ () => handleFilter(column, operator, valueFilter) }
+        disabled={ filters.length === MAX_FILTER_OPTIONS }
       >
         Filtrar
-
       </button>
+      <section>
+        {filters.length > 0 && filters.map((e) => (
+          <p key={ e.column }>{`${e.column} ${e.operator} ${e.valueFilter}`}</p>
+        ))}
+
+      </section>
       <table border="1">
-        <thead className="has-background-primary">
+        <thead>
           <tr>
             <th>name</th>
             <th>rotation_period</th>
