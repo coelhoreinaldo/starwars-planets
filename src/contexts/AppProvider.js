@@ -16,6 +16,8 @@ function AppProvider({ children }) {
   const [operator, setOperator] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
 
+  const [filters, setFilters] = useState([]);
+
   const fetchApi = useCallback(async () => {
     setLoading(true);
     try {
@@ -54,8 +56,11 @@ function AppProvider({ children }) {
     setColumn,
     setOperator,
     setValueFilter,
+
+    filters,
+    setFilters,
   }), [apiData, setApiData, apiInitialState, setApiInitialState, loading, errorMessage,
-    planetName, setPlanetName, column, operator, valueFilter]);
+    planetName, setPlanetName, column, operator, valueFilter, filters, setFilters]);
 
   return (
     <AppContext.Provider value={ values }>

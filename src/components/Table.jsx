@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import AppContext from '../contexts/AppContext';
 
 function Table() {
-  const { apiData, apiInitialState, setApiData, planetName, setPlanetName, column,
-    setColumn, operator,
-    setOperator, valueFilter, setValueFilter } = useContext(AppContext);
+  const {
+    apiData, setApiData, planetName, setPlanetName, column,
+    setColumn, operator, setOperator, valueFilter, setValueFilter, filters, setFilters,
+  } = useContext(AppContext);
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -14,11 +15,12 @@ function Table() {
 
   const handleFilter = (col, oper, value) => {
     const operators = {
-      'maior que': apiInitialState.filter((item) => item[col] > Number(value)),
-      'menor que': apiInitialState.filter((item) => item[col] < Number(value)),
-      'igual a': apiInitialState.filter((item) => item[col] === value),
+      'maior que': apiData.filter((item) => item[col] > Number(value)),
+      'menor que': apiData.filter((item) => item[col] < Number(value)),
+      'igual a': apiData.filter((item) => item[col] === value),
     };
 
+    setFilters([...filters, { column, operator, valueFilter }]);
     setApiData(operators[oper]);
   };
 
@@ -113,7 +115,7 @@ function Table() {
                 <td>{element.gravity}</td>
                 <td>{element.terrain}</td>
                 <td>{element.surface_water}</td>
-                <td>{element.films}</td>
+                <td>{element.films.map((film) => <p key={ film }>{film}</p>)}</td>
                 <td>{element.population}</td>
                 <td>{element.created}</td>
                 <td>{element.edited}</td>
