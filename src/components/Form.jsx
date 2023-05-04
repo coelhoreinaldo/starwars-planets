@@ -7,7 +7,9 @@ function Form() {
     apiData, planetName, setPlanetName, column,
     setColumn, operator, setOperator, valueFilter, setValueFilter, filters,
     setFilters, columnsOptions,
-    setColumnsOptions, setFilteredData, INITIAL_COLS } = useContext(AppContext);
+    setColumnsOptions, setFilteredData, INITIAL_COLS,
+    sortCol, setSortCol, sortBy, setSortBy } = useContext(AppContext);
+
   const handleChange = ({ target }) => {
     const { value } = target;
 
@@ -15,30 +17,25 @@ function Form() {
   };
 
   useEffect(() => {
-    const filteredData = filters.reduce((acc, curr) => {
-      const filter = acc.filter((e) => {
-        switch (curr.operator) {
-        case 'maior que':
-          return e[curr.column] > Number(curr.valueFilter);
-        case 'menor que':
-          return e[curr.column] < Number(curr.valueFilter);
-        default:
-          return e[curr.column] === curr.valueFilter;
-        }
-      });
-      return filter;
-    }, apiData);
+    const filterData = filters
+      .reduce((acc, curr) => {
+        const filter = acc.filter((e) => {
+          switch (curr.operator) {
+          case 'maior que':
+            return e[curr.column] > Number(curr.valueFilter);
+          case 'menor que':
+            return e[curr.column] < Number(curr.valueFilter);
+          default:
+            return e[curr.column] === curr.valueFilter;
+          }
+        });
+        return filter;
+      }, apiData);
 
-    setFilteredData(filteredData);
-  }, [filters, apiData, setFilteredData]);
+    setFilteredData(filterData);
+  }, [filters, apiData, setFilteredData, sortBy, sortCol]);
 
   const handleFilter = (col, oper, value) => {
-    // const operators = {
-    //   'maior que': apiData.filter((item) => item[col] > Number(value)),
-    //   'menor que': apiData.filter((item) => item[col] < Number(value)),
-    //   'igual a': apiData.filter((item) => item[col] === value),
-    // };
-    // setApiData(operators[oper]);
     setColumnsOptions(columnsOptions.filter((e) => e !== col));
     setColumn(columnsOptions[1]);
     setFilters([...filters, { column: col, operator: oper, valueFilter: value }]);
@@ -52,7 +49,18 @@ function Form() {
 
   const handleDeleteAll = () => {
     setColumnsOptions(INITIAL_COLS);
+    setColumn(INITIAL_COLS[0]);
     setFilters([]);
+  };
+
+  const handleSort = () => {
+    console.log('aa');
+  };
+
+  const handleSortBysChange = ({ target }) => {
+    const { value } = target;
+
+    setSortBy(value);
   };
 
   return (
@@ -117,6 +125,51 @@ function Form() {
         Remover Filtros
 
       </button>
+      <fieldset>
+        <label htmlFor="column-sort">
+          <select
+            id="column-sort"
+            data-testid="column-sort"
+            value={ sortCol }
+            onChange={ ({ target }) => setSortCol(target.value) }
+          >
+            {INITIAL_COLS.map((e) => <option key={ e }>{e}</option>)}
+          </select>
+        </label>
+
+        <legend name="sort">Ordenar</legend>
+
+        <input
+          type="radio"
+          name="sort"
+          id="ASC"
+          value="ASC"
+          checked={ sortBy === 'ASC' }
+          onChange={ handleSortBysChange }
+          data-testid="column-sort-input-asc"
+        />
+        <label htmlFor="ASC">ASC</label>
+        <input
+          type="radio"
+          name="sort"
+          id="DESC"
+          value="DESC"
+          checked={ sortBy === 'DESC' }
+          onChange={ handleSortBysChange }
+          data-testid="column-sort-input-desc"
+        />
+        <label htmlFor="DESC">DESC</label>
+
+        <button
+          type="button"
+          data-testid="column-sort-button"
+          onClick={ handleSort }
+        >
+          Ordenar
+
+        </button>
+      </fieldset>
+
       <ul>
         {filters.length > 0 && filters.map((e) => (
           <li data-testid="filter" key={ e.column }>
@@ -130,3 +183,10 @@ function Form() {
 }
 
 export default Form;
+
+// const operators = {
+//   'maior que': apiData.filter((item) => item[col] > Number(value)),
+//   'menor que': apiData.filter((item) => item[col] < Number(value)),
+//   'igual a': apiData.filter((item) => item[col] === value),
+// };
+// setApiData(operators[oper]);

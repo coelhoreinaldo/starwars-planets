@@ -22,6 +22,9 @@ function AppProvider({ children }) {
 
   const [filters, setFilters] = useState([]);
 
+  const [sortCol, setSortCol] = useState('population');
+  const [sortBy, setSortBy] = useState('ASC');
+
   const fetchApi = useCallback(async () => {
     setLoading(true);
     try {
@@ -66,9 +69,13 @@ function AppProvider({ children }) {
     columnsOptions,
     setColumnsOptions,
 
+    setSortCol,
+    sortCol,
     INITIAL_COLS,
+    setSortBy,
+    sortBy,
   }), [apiData, loading, errorMessage, filteredData,
-    planetName, column, operator, valueFilter, filters, columnsOptions]);
+    planetName, column, operator, valueFilter, filters, columnsOptions, sortCol, sortBy]);
 
   return (
     <AppContext.Provider value={ values }>
