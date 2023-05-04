@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import AppContext from '../contexts/AppContext';
+import { FilterContext } from '../contexts/FilterProvider';
 import Form from './Form';
 
 function Table() {
-  const { planetName, filteredData } = useContext(AppContext);
+  const { filteredData, planetName } = useContext(FilterContext);
 
   return (
     <div>

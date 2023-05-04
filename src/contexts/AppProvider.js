@@ -3,27 +3,11 @@ import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
 const API_URL = 'https://swapi.dev/api/planets';
-const INITIAL_COLS = ['population', 'orbital_period', 'diameter',
-  'rotation_period', 'surface_water'];
 
 function AppProvider({ children }) {
-  const [planetName, setPlanetName] = useState('');
-
-  const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const [column, setColumn] = useState('population');
-  const [operator, setOperator] = useState('maior que');
-  const [valueFilter, setValueFilter] = useState(0);
-
-  const [columnsOptions, setColumnsOptions] = useState(INITIAL_COLS);
-
-  const [filters, setFilters] = useState([]);
-
-  const [sortCol, setSortCol] = useState('population');
-  const [sortBy, setSortBy] = useState('ASC');
 
   const fetchApi = useCallback(async () => {
     setLoading(true);
@@ -47,40 +31,11 @@ function AppProvider({ children }) {
   }, [fetchApi]);
 
   const values = useMemo(() => ({
-    apiData,
-    setApiData,
-    filteredData,
-    setFilteredData,
-    loading,
-    errorMessage,
-
-    planetName,
-    setPlanetName,
-    column,
-    operator,
-    valueFilter,
-    setColumn,
-    setOperator,
-    setValueFilter,
-
-    filters,
-    setFilters,
-
-    columnsOptions,
-    setColumnsOptions,
-
-    setSortCol,
-    sortCol,
-    INITIAL_COLS,
-    setSortBy,
-    sortBy,
-  }), [apiData, loading, errorMessage, filteredData,
-    planetName, column, operator, valueFilter, filters, columnsOptions, sortCol, sortBy]);
+    apiData, setApiData, loading, errorMessage,
+  }), [apiData, loading, errorMessage]);
 
   return (
-    <AppContext.Provider value={ values }>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={ values }>{children}</AppContext.Provider>
   );
 }
 

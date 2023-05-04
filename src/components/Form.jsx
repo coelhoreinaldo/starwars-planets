@@ -1,67 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import AppContext from '../contexts/AppContext';
+import React, { useContext } from 'react';
+import { FilterContext } from '../contexts/FilterProvider';
 
 const MAX_FILTER_OPTIONS = 5;
 function Form() {
-  const {
-    apiData, planetName, setPlanetName, column,
-    setColumn, operator, setOperator, valueFilter, setValueFilter, filters,
-    setFilters, columnsOptions,
-    setColumnsOptions, setFilteredData, INITIAL_COLS,
-    sortCol, setSortCol, sortBy, setSortBy } = useContext(AppContext);
-
-  const handleChange = ({ target }) => {
-    const { value } = target;
-
-    setPlanetName(value);
-  };
-
-  useEffect(() => {
-    const filterData = filters
-      .reduce((acc, curr) => {
-        const filter = acc.filter((e) => {
-          switch (curr.operator) {
-          case 'maior que':
-            return e[curr.column] > Number(curr.valueFilter);
-          case 'menor que':
-            return e[curr.column] < Number(curr.valueFilter);
-          default:
-            return e[curr.column] === curr.valueFilter;
-          }
-        });
-        return filter;
-      }, apiData);
-
-    setFilteredData(filterData);
-  }, [filters, apiData, setFilteredData, sortBy, sortCol]);
-
-  const handleFilter = (col, oper, value) => {
-    setColumnsOptions(columnsOptions.filter((e) => e !== col));
-    setColumn(columnsOptions[1]);
-    setFilters([...filters, { column: col, operator: oper, valueFilter: value }]);
-  };
-
-  const handleDeleteOneFilter = (toBeDeleted) => {
-    setColumnsOptions([...columnsOptions, toBeDeleted.column]);
-    setColumn(columnsOptions[0]);
-    setFilters(filters.filter((e) => e !== toBeDeleted));
-  };
-
-  const handleDeleteAll = () => {
-    setColumnsOptions(INITIAL_COLS);
-    setColumn(INITIAL_COLS[0]);
-    setFilters([]);
-  };
-
-  const handleSort = () => {
-    console.log('aa');
-  };
-
-  const handleSortBysChange = ({ target }) => {
-    const { value } = target;
-
-    setSortBy(value);
-  };
+  const { planetName, handleChange,
+    column, setColumn, operator, setOperator, valueFilter, setValueFilter,
+    filters, handleDeleteAll, handleDeleteOneFilter, handleFilter,
+    columnsOptions, INITIAL_COLS, sortCol, setSortCol,
+    sortBy, handleSortBysChange, handleSort,
+  } = useContext(FilterContext);
 
   return (
     <div>
