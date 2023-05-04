@@ -34,10 +34,3 @@ function Form() {
 }
 
 export default Form;
-
-// const operators = {
-//   'maior que': apiData.filter((item) => item[col] > Number(value)),
-//   'menor que': apiData.filter((item) => item[col] < Number(value)),
-//   'igual a': apiData.filter((item) => item[col] === value),
-// };
-// setApiData(operators[oper]);
