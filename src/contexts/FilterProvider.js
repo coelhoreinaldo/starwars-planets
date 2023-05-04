@@ -52,7 +52,8 @@ function FilterProvider({ children }) {
     setFilteredData(filterData);
   }, [filters, apiData, setFilteredData, sortBy, sortCol]);
 
-  const handleFilter = useCallback((col, oper, value) => {
+  const handleFilter = useCallback((event, col, oper, value) => {
+    event.preventDefault();
     setColumnsOptions(columnsOptions.filter((e) => e !== col));
     setColumn((columnsOptions[1]));
     setFilters([...filters, { column: col, operator: oper, valueFilter: value }]);

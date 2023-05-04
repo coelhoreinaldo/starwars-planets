@@ -6,7 +6,10 @@ function FilterForm() {
   const { column, setColumn, operator, setOperator, valueFilter, setValueFilter,
     filters, handleDeleteAll, handleFilter, columnsOptions } = useContext(FilterContext);
   return (
-    <form>
+    <form
+      onSubmit={ (e) => handleFilter(e, column, operator, valueFilter) }
+      onReset={ handleDeleteAll }
+    >
       <label htmlFor="column-filter">
         Column
         <select
@@ -42,17 +45,15 @@ function FilterForm() {
         />
       </label>
       <button
-        type="button"
+        type="submit"
         data-testid="button-filter"
-        onClick={ () => handleFilter(column, operator, valueFilter) }
         disabled={ filters.length === MAX_FILTER_OPTIONS }
       >
         Filtrar
       </button>
       <button
-        type="button"
+        type="reset"
         data-testid="button-remove-filters"
-        onClick={ handleDeleteAll }
         disabled={ filters.length === 0 }
       >
         Remover Filtros
