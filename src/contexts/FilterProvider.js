@@ -1,5 +1,7 @@
-import { createContext, useCallback, useContext,
-  useMemo, useState, useEffect } from 'react';
+import {
+  createContext, useCallback, useContext,
+  useMemo, useState, useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
@@ -68,9 +70,19 @@ function FilterProvider({ children }) {
     setFilters([]);
   }, []);
 
-  const handleSort = () => {
-    console.log('aa');
-  };
+  const handleSort = useCallback(() => {
+    const isUnknown = filteredData.filter((e) => e[sortCol] === 'unknown');
+    const hasData = filteredData.filter((e) => e[sortCol] !== 'unknown');
+    hasData.sort((a, b) => {
+      if (sortBy === 'ASC') {
+        return +a[sortCol] - +b[sortCol];
+      }
+      return +b[sortCol] - +a[sortCol];
+    });
+    setFilteredData([...hasData, ...isUnknown]);
+    console.log(isUnknown);
+    console.log(hasData);
+  }, [filteredData, sortCol, sortBy]);
 
   const handleSortBysChange = ({ target }) => {
     const { value } = target;
@@ -111,7 +123,7 @@ function FilterProvider({ children }) {
     handleSortBysChange,
   }), [filteredData, planetName, column, operator, valueFilter, filters,
     handleFilter, handleDeleteOneFilter, handleDeleteAll,
-    columnsOptions, sortCol, sortBy]);
+    columnsOptions, sortCol, sortBy, handleSort]);
 
   return (
     <FilterContext.Provider value={ values }>{children}</FilterContext.Provider>
