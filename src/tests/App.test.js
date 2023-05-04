@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import App from '../App'
-import planetsData from './mocks/planetsData';
+import { planetsData, errorMessage } from './mocks';
 import AppProvider from '../contexts/AppProvider';
 import FilterProvider from '../contexts/FilterProvider';
 
@@ -42,8 +42,6 @@ describe('the App component', () => {
 });
 
 describe('the app component', () => {
-
-  const errorMessage = '404 not found'
 
   it('should return a error message when fetch fails', async () => {
     jest.spyOn(global, 'fetch').mockRejectedValue({

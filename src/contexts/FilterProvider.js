@@ -57,6 +57,7 @@ function FilterProvider({ children }) {
     setColumnsOptions(columnsOptions.filter((e) => e !== col));
     setColumn((columnsOptions[1]));
     setFilters([...filters, { column: col, operator: oper, valueFilter: value }]);
+    setValueFilter(0);
   }, [columnsOptions, filters]);
 
   const handleDeleteOneFilter = useCallback((toBeDeleted) => {

@@ -1,4 +1,6 @@
-const planetsData = {
+export const errorMessage = '404';
+
+export const planetsData = {
     "count": 60,
     "next": "https://swapi.dev/api/planets/?page=2",
     "previous": null,
@@ -136,5 +138,3 @@ const planetsData = {
             "url": "https://swapi.dev/api/planets/7/"
         }, ]
 };
-
-export default planetsData;
