@@ -82,8 +82,6 @@ function FilterProvider({ children }) {
       return +b[sortCol] - +a[sortCol];
     });
     setFilteredData([...hasData, ...isUnknown]);
-    console.log(isUnknown);
-    console.log(hasData);
   }, [filteredData, sortCol, sortBy]);
 
   const handleSortBysChange = ({ target }) => {

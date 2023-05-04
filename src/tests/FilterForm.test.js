@@ -78,7 +78,7 @@ describe('the FilterForm component', () => {
 
   })
 
-  it('should delete a filter on X button', async () => {
+  it('should delete a filter on X button click', async () => {
     render(<AppProvider><FilterProvider><App /></FilterProvider></AppProvider>);
 
     const findByColInput = await screen.findByTestId('column-filter');
@@ -104,7 +104,7 @@ describe('the FilterForm component', () => {
     expect(yavinPlanet2).toBeInTheDocument();
   })
 
-  it('should delete all filters on remove fliters buttons', async () => {
+  it('should delete all filters on remove fliters buttons click', async () => {
     render(<AppProvider><FilterProvider><App /></FilterProvider></AppProvider>);
 
     const findByColInput = await screen.findByTestId('column-filter');
