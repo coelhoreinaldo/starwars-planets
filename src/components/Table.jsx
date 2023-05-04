@@ -1,9 +1,19 @@
 import React, { useContext } from 'react';
 import { FilterContext } from '../contexts/FilterProvider';
 import Form from './Form';
+import AppContext from '../contexts/AppContext';
 
 function Table() {
+  const { loading, errorMessage } = useContext(AppContext);
   const { filteredData, planetName } = useContext(FilterContext);
+
+  if (loading) {
+    return (<p>Loading...</p>);
+  }
+
+  if (errorMessage) {
+    return (<p data-testid="error">{errorMessage}</p>);
+  }
 
   return (
     <div>
