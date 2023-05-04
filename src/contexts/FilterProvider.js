@@ -55,14 +55,14 @@ function FilterProvider({ children }) {
   const handleFilter = useCallback((event, col, oper, value) => {
     event.preventDefault();
     setColumnsOptions(columnsOptions.filter((e) => e !== col));
-    setColumn((columnsOptions[1]));
+    setColumn(columnsOptions.filter((e) => e !== col)[0]);
     setFilters([...filters, { column: col, operator: oper, valueFilter: value }]);
     setValueFilter(0);
   }, [columnsOptions, filters]);
 
   const handleDeleteOneFilter = useCallback((toBeDeleted) => {
     setColumnsOptions([...columnsOptions, toBeDeleted.column]);
-    setColumn(columnsOptions[0]);
+    setColumn([...columnsOptions, toBeDeleted.column][0]);
     setFilters(filters.filter((e) => e !== toBeDeleted));
   }, [columnsOptions, filters]);
 
