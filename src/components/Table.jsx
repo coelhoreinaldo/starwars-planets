@@ -16,9 +16,9 @@ function Table() {
   }
 
   return (
-    <div>
+    <div className="d-flex flex-column align-items-center col-12 col-6 ">
       <Form />
-      <table border="1">
+      <table className="table table-striped table-primary w-50">
         <thead>
           <tr>
             <th>name</th>
