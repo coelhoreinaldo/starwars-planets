@@ -47,6 +47,7 @@ Projeto construído utilizando React.js.
 ## 🧪 Cobertura de Testes
 
 <img src='/coverage.png' alt='100% em cobertura de códigos' >
+
 ## ©️ Copyright
 
 Este projeto foi desenvolvido Todo o código e o CSS implementado são de minha autoria e os direitos são reservados a mim.
