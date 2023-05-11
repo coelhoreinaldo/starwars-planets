@@ -50,4 +50,4 @@ Projeto construído utilizando React.js.
 
 ## ©️ Copyright
 
-Este projeto foi desenvolvido Todo o código e o CSS implementado são de minha autoria e os direitos são reservados a mim.
+Este projeto foi desenvolvido por mim. Todo o código e o CSS implementado são de minha autoria e os direitos são reservados a mim.
