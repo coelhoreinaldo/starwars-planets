@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { FilterContext } from '../contexts/FilterProvider';
 import Form from './Form';
 import AppContext from '../contexts/AppContext';
+import '../styles/Table.css';
 
 function Table() {
   const { loading, errorMessage } = useContext(AppContext);
@@ -16,9 +17,9 @@ function Table() {
   }
 
   return (
-    <div className="">
+    <main className="">
       <Form />
-      <table className="" border="1px">
+      <table className="" border="1px" width="250px">
         <thead>
           <tr>
             <th>name</th>
@@ -58,7 +59,7 @@ function Table() {
             ))}
         </tbody>
       </table>
-    </div>
+    </main>
   );
 }
 
