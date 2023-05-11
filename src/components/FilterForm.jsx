@@ -9,32 +9,37 @@ function FilterForm() {
     <form
       onSubmit={ (e) => handleFilter(e, column, operator, valueFilter) }
       onReset={ handleDeleteAll }
+      className="form-filter"
     >
-      <label htmlFor="column-filter">
-        Column
-        <select
-          data-testid="column-filter"
-          id="column-filter"
-          onChange={ ({ target }) => setColumn(target.value) }
-          value={ column }
-        >
-          {columnsOptions.map((e) => <option value={ e } key={ e }>{e}</option>)}
-        </select>
-      </label>
-      <label htmlFor="comparison-filter">
-        Operator
-        <select
-          data-testid="comparison-filter"
-          id="comparison-filter"
-          value={ operator }
-          onChange={ ({ target }) => setOperator(target.value) }
-        >
-          <option>maior que</option>
-          <option>menor que</option>
-          <option>igual a</option>
-        </select>
-      </label>
-      <label htmlFor="value-filter">
+      <section className="filter-options">
+        <div>
+          <label htmlFor="column-filter">
+            Column
+          </label>
+          <select
+            data-testid="column-filter"
+            id="column-filter"
+            onChange={ ({ target }) => setColumn(target.value) }
+            value={ column }
+          >
+            {columnsOptions.map((e) => <option value={ e } key={ e }>{e}</option>)}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="comparison-filter">
+            Operator
+          </label>
+          <select
+            data-testid="comparison-filter"
+            id="comparison-filter"
+            value={ operator }
+            onChange={ ({ target }) => setOperator(target.value) }
+          >
+            <option>maior que</option>
+            <option>menor que</option>
+            <option>igual a</option>
+          </select>
+        </div>
         <input
           data-testid="value-filter"
           type="number"
@@ -43,22 +48,24 @@ function FilterForm() {
           value={ valueFilter }
           onChange={ ({ target }) => setValueFilter(target.value) }
         />
-      </label>
-      <button
-        type="submit"
-        data-testid="button-filter"
-        disabled={ filters.length === MAX_FILTER_OPTIONS }
-      >
-        Filtrar
-      </button>
-      <button
-        type="reset"
-        data-testid="button-remove-filters"
-        disabled={ filters.length === 0 }
-      >
-        Remover Filtros
+      </section>
+      <section className="filter-buttons">
+        <button
+          type="submit"
+          data-testid="button-filter"
+          disabled={ filters.length === MAX_FILTER_OPTIONS }
+        >
+          Filtrar
+        </button>
+        <button
+          type="reset"
+          data-testid="button-remove-filters"
+          disabled={ filters.length === 0 }
+        >
+          Remover Filtros
 
-      </button>
+        </button>
+      </section>
     </form>
   );
 }

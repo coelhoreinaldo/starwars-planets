@@ -17,7 +17,7 @@ function Table() {
   }
 
   return (
-    <main className="">
+    <main>
       <Form />
       <table className="" border="1px" width="250px">
         <thead>
