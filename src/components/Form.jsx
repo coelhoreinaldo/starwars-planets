@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { FilterContext } from '../contexts/FilterProvider';
 import FilterForm from './FilterForm';
 import SortForm from './SortForm';
+import '../styles/Form.css';
 
 function Form() {
   const {
@@ -9,16 +10,16 @@ function Form() {
   } = useContext(FilterContext);
 
   return (
-    <div>
-      <label data-testid="name-filter" htmlFor="name-filter">
-        <input
-          type="text"
-          id="name-filter"
-          value={ planetName }
-          onChange={ handleChange }
-          placeholder="Search by name"
-        />
-      </label>
+    <section className="main-filters">
+      <input
+        data-testid="name-filter"
+        type="text"
+        id="name-filter"
+        className="name-filter"
+        value={ planetName }
+        onChange={ handleChange }
+        placeholder="Search by name"
+      />
       <FilterForm />
       <ul>
         {filters.length > 0 && filters.map((e) => (
@@ -29,7 +30,7 @@ function Form() {
         ))}
       </ul>
       <SortForm />
-    </div>
+    </section>
   );
 }
 

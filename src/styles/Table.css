@@ -1,0 +1,18 @@
+table {
+  backdrop-filter: blur(8px);
+  background-blend-mode: color;
+  border-radius: 8px;
+  color: white;
+  display: block;
+  max-width: 350px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 4px;
+  text-align: center;
+  width: 100%;
+}
+
+table thead {
+  background-color: darkblue;
+  border-radius: 16px;
+}
