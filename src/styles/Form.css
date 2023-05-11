@@ -1,13 +1,18 @@
 .main-filters {
   align-items: center;
-  background-color: rgb(0, 85, 255);
+  backdrop-filter: blur(5px);
+  background-color: rgba(240, 248, 255, 0.248);
+  border-radius: 8px;
+  color: white;
   display: flex;
   flex-direction: column;
   gap: 8px;
   justify-content: center;
+  margin-bottom: 16px;
   max-width: 100%;
   padding: 6px;
 }
+
 
 .main-filters .form-filter {
   display: flex;
@@ -52,5 +57,12 @@
 }
 
 .main-filters .filter-buttons button {
+  background-color: unset;
+  border: 2px dashed;
   width: 100%;
+}
+
+.main-filters .filter-buttons button:not( [ disabled ] ) {
+  border: 2px dashed darkblue;
+  color: darkblue;
 }
