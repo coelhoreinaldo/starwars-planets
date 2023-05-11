@@ -9,7 +9,7 @@ function Form() {
   } = useContext(FilterContext);
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center">
+    <div className="">
       <label data-testid="name-filter" htmlFor="name-filter">
         <input
           type="text"
