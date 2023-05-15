@@ -21,6 +21,7 @@ function Form() {
         placeholder="Search by name"
       />
       <FilterForm />
+      <SortForm />
       <ul>
         {filters.length > 0 && filters.map((e) => (
           <li data-testid="filter" key={ e.column }>
@@ -29,7 +30,6 @@ function Form() {
           </li>
         ))}
       </ul>
-      <SortForm />
     </section>
   );
 }

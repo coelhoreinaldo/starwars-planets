@@ -1,18 +1,38 @@
 table {
   backdrop-filter: blur(8px);
   background-blend-mode: color;
+  border: 1px solid black;
   border-radius: 8px;
   color: white;
   display: block;
   max-width: 400px;
   overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0 4px;
   text-align: center;
   width: 100%;
 }
 
-table thead {
+
+table thead th {
   background-color: darkblue;
-  border-radius: 16px;
+  border: unset;
+  padding: 4px;
+  width: 100%;
+}
+
+table thead th:nth-child( 1 ) {
+  border-top-left-radius: 8px;
+}
+
+table thead th:nth-last-child( 1 ) {
+  border-top-right-radius: 8px;
+}
+
+
+@media only screen and ( min-width : 768px ) {
+
+  table {
+    height: 600px;
+    max-width: 90%;
+  }
+
 }

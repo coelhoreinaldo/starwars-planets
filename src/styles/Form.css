@@ -21,7 +21,7 @@
   gap: 8px;
 }
 
-.main-filters input, .main-filters select, .main-filters button {
+.main-filters input, .main-filters select, .main-filters button:not( [ disabled ] ) {
   background-color: darkblue;
   border: 2px solid rgb(0, 107, 139);
   border-radius: 8px;
@@ -63,9 +63,34 @@
   border: none;
   border-radius: 8px;
   color: white;
+  transition: 300ms;
   width: 100%;
 }
 
-.main-filters .filter-buttons button:not( [ disabled ] ) {
+.main-filters button:not( [ disabled ] ) {
   background-color: darkblue;
+  cursor: pointer;
+}
+
+.main-filters button:not( [ disabled ] ):hover {
+  background-color: yellow;
+  color: black;
+}
+
+@media only screen and ( min-width : 768px ) {
+
+  .main-filters {
+    flex-flow: row wrap;
+    max-width: 760px;
+  }
+
+  .main-filters .name-filter {
+    max-width: 600px;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    text-align: center;
+  }
 }
