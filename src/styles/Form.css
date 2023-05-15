@@ -1,7 +1,7 @@
 .main-filters {
   align-items: center;
   backdrop-filter: blur(5px);
-  background-color: rgba(240, 248, 255, 0.248);
+  border: 1px solid gray;
   border-radius: 8px;
   color: white;
   display: flex;
@@ -9,8 +9,9 @@
   gap: 8px;
   justify-content: center;
   margin-bottom: 16px;
-  max-width: 100%;
+  max-width: 400px;
   padding: 6px;
+  width: 100%;
 }
 
 
@@ -20,10 +21,11 @@
   gap: 8px;
 }
 
-.main-filters input, .main-filters select {
-  background-color: unset;
-  border: 1px solid darkblue;
+.main-filters input, .main-filters select, .main-filters button:not( [ disabled ] ) {
+  background-color: darkblue;
+  border: 2px solid rgb(0, 107, 139);
   border-radius: 8px;
+  color: white;
 }
 
 .main-filters .name-filter {
@@ -34,6 +36,7 @@
 .main-filters .filter-options {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
   justify-content: center;
   text-align: center;
@@ -57,12 +60,47 @@
 }
 
 .main-filters .filter-buttons button {
-  background-color: unset;
-  border: 2px dashed;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  transition: 300ms;
   width: 100%;
 }
 
-.main-filters .filter-buttons button:not( [ disabled ] ) {
-  border: 2px dashed darkblue;
-  color: darkblue;
+.main-filters button:not( [ disabled ] ) {
+  background-color: darkblue;
+  cursor: pointer;
+}
+
+.main-filters button:not( [ disabled ] ):hover {
+  background-color: yellow;
+  color: black;
+}
+
+ul {
+  list-style: none;
+  text-align: center;
+}
+
+.main-filters #delete-one {
+  background-color: red;
+}
+
+@media only screen and ( min-width : 768px ) {
+
+  .main-filters {
+    flex-flow: row wrap;
+    max-width: 760px;
+  }
+
+  .main-filters .name-filter {
+    max-width: 600px;
+  }
+
+  .main-filters ul {
+    display: flex;
+    list-style: none;
+    text-align: center;
+  }
+
 }

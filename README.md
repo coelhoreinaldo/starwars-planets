@@ -1,5 +1,7 @@
 # 🛰 Star Wars Planet Search
 
+<img src='/star-wars.png' alt='100% de aprovação no projeto' />
+
 ## 📘 Sobre
 
 Consumo do endpoint de planetas da API do [Star Wars](https://swapi.dev/api/planets) e renderização dos dados em uma tabela usando React.js. É possível filtrar os planetas por diversos parâmetros, além de ser possível ordernar de maneira crescente ou decrescente.
@@ -13,7 +15,6 @@ Consumo do endpoint de planetas da API do [Star Wars](https://swapi.dev/api/plan
 - Remover todos os filtros ao clicar no botão de remover filtros.
 - Ordenar de maneira decrescente ou crescente.
 
-🚧 CSS EM DESENVOLVIMENTO 🚧
 
 ## ⚛️ Ferramentas
 
