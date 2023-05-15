@@ -77,6 +77,15 @@
   color: black;
 }
 
+ul {
+  list-style: none;
+  text-align: center;
+}
+
+.main-filters #delete-one {
+  background-color: red;
+}
+
 @media only screen and ( min-width : 768px ) {
 
   .main-filters {
@@ -88,9 +97,10 @@
     max-width: 600px;
   }
 
-  ul {
+  .main-filters ul {
     display: flex;
     list-style: none;
     text-align: center;
   }
+
 }

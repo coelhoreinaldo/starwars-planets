@@ -3,6 +3,7 @@ import { FilterContext } from '../contexts/FilterProvider';
 import Form from './Form';
 import AppContext from '../contexts/AppContext';
 import '../styles/Table.css';
+import logo from '../images/logo.svg';
 
 function Table() {
   const { loading, errorMessage } = useContext(AppContext);
@@ -18,6 +19,10 @@ function Table() {
 
   return (
     <main>
+      <section className="logo-container">
+        <img src={ logo } alt="Star Wars logo" className="logo" />
+      </section>
+      <br />
       <Form />
       <table className="" border="1px" width="250px">
         <thead>

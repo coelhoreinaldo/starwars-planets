@@ -25,7 +25,12 @@ function Form() {
       <ul>
         {filters.length > 0 && filters.map((e) => (
           <li data-testid="filter" key={ e.column }>
-            <button onClick={ () => handleDeleteOneFilter(e) }>X</button>
+            <button
+              id="delete-one"
+              onClick={ () => handleDeleteOneFilter(e) }
+            >
+              X
+            </button>
             <p>{`${e.column} ${e.operator} ${e.valueFilter}`}</p>
           </li>
         ))}

@@ -27,6 +27,12 @@ table thead th:nth-last-child( 1 ) {
   border-top-right-radius: 8px;
 }
 
+main .logo-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
 
 @media only screen and ( min-width : 768px ) {
 
